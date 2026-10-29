@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mangos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f12;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff3366, #ff6633);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: #8a8a93;
+            margin-bottom: 30px;
+        }
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #232329;
+            border-radius: 30px;
+            background-color: #16161c;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #ff3366;
+        }
+        button {
+            position: absolute;
+            right: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff3366, #ff6633);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lyra</h1>
+        <p>Explore the web securely and without limits.</p>
+        <div class="search-box">
+            <input type="text" id="url-input" placeholder="Enter a URL or search query...">
+            <button onclick="launchProxy()">Go</button>
+        </div>
+    </div>
+
+    <script>
+        function launchProxy() {
+            const input = document.getElementById('url-input').value;
+            if (!input) return;
+            
+            // Format input into a proper URL if it isn't one
+            let targetUrl = input;
+            if (!/^https?:\/\//i.test(targetUrl)) {
+                if (targetUrl.includes('.') && !targetUrl.includes(' ')) {
+                    targetUrl = 'https://' + targetUrl;
+                } else {
+                    targetUrl = 'https://google.com' + encodeURIComponent(targetUrl);
+                }
+            }
+            
+            // Route the traffic through your proxy handler
+            window.location.href = '/service/' + btoa(targetUrl);
+        }
+    </script>
+</body>
+</html>
