@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mangos</title>
+    <title>Lyra Proxy Portal</title>
     <style>
         body {
             margin: 0;
@@ -76,11 +76,12 @@
     </div>
 
     <script>
+        const BONTO_BACKEND_URL = "https://bonto.dev";
+
         function launchProxy() {
             const input = document.getElementById('url-input').value;
             if (!input) return;
             
-            // Format input into a proper URL if it isn't one
             let targetUrl = input;
             if (!/^https?:\/\//i.test(targetUrl)) {
                 if (targetUrl.includes('.') && !targetUrl.includes(' ')) {
@@ -90,8 +91,7 @@
                 }
             }
             
-            // Route the traffic through your proxy handler
-            window.location.href = '/service/' + btoa(targetUrl);
+            window.location.href = BONTO_BACKEND_URL + 'service/' + btoa(targetUrl);
         }
     </script>
 </body>
